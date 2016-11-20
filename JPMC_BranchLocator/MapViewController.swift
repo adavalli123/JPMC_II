@@ -13,9 +13,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     var long: Double?
     var lat: Double?
-    var detailDictonary = [String: Any]()
-    var annotationList: [AnnotationModel]?
-    var locationList: [LocationModel]?
+    
     var networkRequester: NetworkRequestor = NetworkRequestor()
     
     //MARK: Outlets
