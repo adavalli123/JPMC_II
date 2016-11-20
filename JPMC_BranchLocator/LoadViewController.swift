@@ -13,6 +13,7 @@ class LoadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +21,14 @@ class LoadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func navToBranch(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "showMap", sender: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 
 }
 
