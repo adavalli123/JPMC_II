@@ -21,7 +21,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mySearch: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +34,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         clLocationManager.requestAlwaysAuthorization()
         clLocationManager.startUpdatingLocation()
         
-    }
-    @IBAction func closeBarButton(_ sender: AnyObject) {
-//        let viewControllers: [UIViewController] = self.navigationController!.viewControllers 
-//        for aViewController in viewControllers {
-//            if(aViewController is LoadViewController){
-//                self.navigationController!.popToViewController(aViewController, animated: true);
-//            }
-//        }
-        self.navigationController?.popViewController(animated: true);
     }
     
     //add annotation after get annotation result list
