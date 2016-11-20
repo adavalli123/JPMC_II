@@ -16,8 +16,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var detailDictonary = [String: Any]()
     var annotationList: [AnnotationModel]?
     var locationList: [LocationModel]?
-    var searchString:String?
-    let geoCoder = CLGeocoder()
+    var networkRequester: NetworkRequestor = NetworkRequestor()
     
     //MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -37,7 +36,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     //MARK: Mapkit Delegates
-    //customized annotation set image
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation.isKind(of: AnnotationModel.self) == true {
@@ -52,8 +50,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return nil
     }
     
-    //MARK: CLLocation Delegates
-    //detail button func
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let temp = view.annotation as! AnnotationModel
         let anno = temp.infoDict! as [String:AnyObject]
@@ -99,69 +95,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //Making HTTP GET REQUEST
     private func getRequestedData(lat: Double, long: Double) {
-        var fullPath = "https://m.chase.com/PSRWeb/location/list.action?lat=\(lat)&lng=\(long)"
-        
-        fullPath = fullPath.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        let request = URLRequest(url: URL(string: fullPath)!)
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-            
-            do
-            {
-                guard let responseData : [String: AnyObject] = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: AnyObject] else {
-                    return
-                }
-                
-                guard let resultArray = responseData["locations"] else {
-                    return
-                }
-                let locationArray = resultArray as! [[String: AnyObject]]
-                var models = [LocationModel]()
-                var annoModels = [AnnotationModel]()
-                for model in locationArray
-                {
-                    let info = LocationModel(dict: model)
-                    models.append(info)
-                    let lat = Double(info.lat!)
-                    let lng = Double(info.lng!)
-                    self.detailDictonary = ["address": info.address!,
-                                            "city":model["city"],
-                                            "state": model["state"],
-                                            "zip": model["zip"],
-                                            "phone":model["phone"],
-                                            "distance": model["distance"],
-                                            "atm": model["atm"],
-                                            "lobbyHours": model["lobbyHrs"],
-                                            "driveUpHours": model["driveUpHrs"],
-                                            "locationType": info.locType,
-                                            "type": model["type"],
-                                            "label":model["label"],
-                                            "access":model["access"],
-                                            "services":model["services"],
-                                            "atms":model["atms"]] as [String : Any]
-                    
-                    let coordinate = CLLocationCoordinate2D(latitude:CLLocationDegrees(lat!),longitude: CLLocationDegrees(lng!))
-                    let annotation = AnnotationModel(title: info.address!, subtitle: info.label!, icon: info.locType, infoDict: self.detailDictonary as [String : AnyObject], coordinate: coordinate)
-                    annoModels.append(annotation)
-                }
-                self.locationList = models
-                self.annotationList = annoModels
-                
-                DispatchQueue.main.async {
-                    self.addAnnotation()
+        networkRequester.getLocation(lat: lat, long: long) { locationResponse, annotationResponse, error in
+            DispatchQueue.main.async {
+                for anno in annotationResponse!{
+                    let anno = AnnotationModel(title: anno.title!, subtitle: anno.subtitle!, icon: anno.icon!, infoDict: anno.infoDict!,coordinate: anno.coordinate)
+                    self.mapView.addAnnotation(anno)
                 }
             }
-            catch _ as NSError {
-                
-            }
-        })
-        task.resume()
-    }
-    
-    //add annotation after get annotation result list
-    private func addAnnotation() -> Void{
-        for anno in self.annotationList!{
-            let anno = AnnotationModel(title: anno.title!, subtitle: anno.subtitle!, icon: anno.icon!, infoDict: anno.infoDict!,coordinate: anno.coordinate)
-            mapView.addAnnotation(anno)
         }
     }
 }

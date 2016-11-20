@@ -18,6 +18,7 @@
 		6E0942831DE0CD1000F770B7 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0942821DE0CD1000F770B7 /* LocationModel.swift */; };
 		6E0942851DE0CD2500F770B7 /* AnnotationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0942841DE0CD2500F770B7 /* AnnotationModel.swift */; };
 		6EDF311E1DE0FB4500071BF9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDF311D1DE0FB4500071BF9 /* DetailViewController.swift */; };
+		6EDF31221DE154F900071BF9 /* NetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDF31211DE154F900071BF9 /* NetworkRequestor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		6E0942821DE0CD1000F770B7 /* LocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		6E0942841DE0CD2500F770B7 /* AnnotationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationModel.swift; sourceTree = "<group>"; };
 		6EDF311D1DE0FB4500071BF9 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		6EDF31211DE154F900071BF9 /* NetworkRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				6E09427E1DE0BFB100F770B7 /* Constants.swift */,
+				6EDF31211DE154F900071BF9 /* NetworkRequestor.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EDF311E1DE0FB4500071BF9 /* DetailViewController.swift in Sources */,
+				6EDF31221DE154F900071BF9 /* NetworkRequestor.swift in Sources */,
 				6E09427F1DE0BFB100F770B7 /* Constants.swift in Sources */,
 				6E0942661DE0B02800F770B7 /* LoadViewController.swift in Sources */,
 				6E09426C1DE0B02800F770B7 /* JPMC_BranchLocator.xcdatamodeld in Sources */,
