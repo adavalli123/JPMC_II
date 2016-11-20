@@ -48,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--BRANCH LOCATIONS-->
+        <!-- -->
         <scene sceneID="jI4-vI-MeJ">
             <objects>
                 <viewController id="Xgk-hE-0Fb" customClass="MapViewController" customModule="JPMC_BranchLocator" customModuleProvider="target" sceneMemberID="viewController">
@@ -74,7 +74,8 @@
                             <constraint firstAttribute="trailing" secondItem="llI-0a-OnY" secondAttribute="trailing" id="UjB-g4-6K7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="BRANCH LOCATIONS" id="Mcj-zl-rVB">
+                    <navigationItem key="navigationItem" title=" " id="Mcj-zl-rVB">
+                        <barButtonItem key="backBarButtonItem" title=" " id="p6D-Oq-Sck"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="asr-mj-VGe">
                             <connections>
                                 <action selector="closeBarButton:" destination="Xgk-hE-0Fb" id="1aO-P6-2cm"/>

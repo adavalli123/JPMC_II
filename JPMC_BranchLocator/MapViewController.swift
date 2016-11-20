@@ -25,7 +25,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.userTrackingMode = .follow
-        navigationCustomeTitle(color: UIColor.blue, title: "BRANCH LOCATOR", fontSize: 28.0)
+        navigationCustomeTitle(color: UIColor.black, title: "BRANCHES", fontSize: 28.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,14 +36,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
-    //add annotation after get annotation result list
-    func addAnnotation() -> Void{
-        for anno in self.annotationList!{
-            let anno = AnnotationModel(title: anno.title!, subtitle: anno.subtitle!, icon: anno.icon!, infoDict: anno.infoDict!,coordinate: anno.coordinate)
-            mapView.addAnnotation(anno)
-        }
-    }
-    
+    //MARK: Mapkit Delegates
     //customized annotation set image
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -59,6 +52,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return nil
     }
     
+    //MARK: CLLocation Delegates
     //detail button func
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let temp = view.annotation as! AnnotationModel
@@ -97,7 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //MARK: Private Functions
     private func navigationCustomeTitle(color: UIColor, title: String, fontSize: CGFloat) {
         let titleLabel = UILabel()
-        let attributes: [String : AnyObject] = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize), NSForegroundColorAttributeName: color, NSKernAttributeName : 5.0 as AnyObject]
+        let attributes: [String : AnyObject] = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize), NSForegroundColorAttributeName: color, NSKernAttributeName : 2.0 as AnyObject]
         titleLabel.attributedText = NSAttributedString(string: title, attributes: attributes)
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
@@ -161,5 +155,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         })
         task.resume()
+    }
+    
+    //add annotation after get annotation result list
+    private func addAnnotation() -> Void{
+        for anno in self.annotationList!{
+            let anno = AnnotationModel(title: anno.title!, subtitle: anno.subtitle!, icon: anno.icon!, infoDict: anno.infoDict!,coordinate: anno.coordinate)
+            mapView.addAnnotation(anno)
+        }
     }
 }
